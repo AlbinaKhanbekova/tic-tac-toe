@@ -4,7 +4,6 @@ const initialState = {
     firstPlayerTurn: true,
     secondPlayerTurn: false,
     gameField: Array.from(new Array(9), (x, i) => i + ''),
-    currentPlayer: 0,
     winner: 0,
     firstPlayerScore: 0,
     secondPlayerScore: 0,
@@ -76,7 +75,6 @@ const gameReducer = (state = {...initialState}, action) => {
                 firstPlayerTurn: true,
                 secondPlayerTurn: false,
                 gameField: Array.from(new Array(9), (x, i) => i + ''),
-                currentPlayer: 0,
                 winner: 0,
                 winningSequence: [],
                 gameOver: false
