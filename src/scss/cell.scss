@@ -1,0 +1,48 @@
+.cell {
+  background-color: white;
+  border: 1px solid #333333;
+
+  &--player1 {
+    position: relative;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      width: 6px;
+      height: 60%;
+      background-color: #f40000;
+      border-radius: 6px;
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  &--player2 {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 54px;
+      line-height: 1;
+      border-radius: 100%;
+      width: 45%;
+      height: 45%;
+      border: 5px solid #000000;
+    }
+  }
+
+  &.winner {
+    background-color: #83d475;
+  }
+}
+

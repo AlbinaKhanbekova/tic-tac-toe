@@ -1,0 +1,39 @@
+.info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-align: center;
+
+  &__block {
+    width: 33%;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  &__block--score {
+    border: 2px solid #333333;
+  }
+
+  &__block--result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__header {
+    font-size: 1.2rem;
+    margin: 0.5rem;
+
+    @media all and (min-width: 768px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__score {
+    font-size: 1.2rem;
+
+    @media all and (min-width: 768px) {
+      font-size: 1.2rem;
+    }
+  }
+}
