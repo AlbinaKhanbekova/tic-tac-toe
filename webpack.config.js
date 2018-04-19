@@ -1,23 +1,22 @@
 var path = require('path');
 const webpack = require('webpack');
-const publicPath = './public';
+const publicPath = './docs';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoPreFixer = require('autoprefixer');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const htmlPlugin = new HtmlWebpackPlugin({
     template: "./src/index.html",
     filename: "./index.html"
 });
 
+let extractStyles = new ExtractTextPlugin({
+    filename: 'index.css',
+    allChunks: false
+});
+
 module.exports = {
     devtool: 'eval-source-map',
-    plugins: [
-        htmlPlugin,
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.ProvidePlugin({
-            classNames: 'classnames'
-        })
-    ],
 
     output: {
         path: path.join(__dirname, publicPath),
@@ -40,19 +39,27 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: () => [autoPreFixer({
-                                browsers: ['last 2 versions']
-                            })]
-                        }
-                    },
-                    'sass-loader'
-                ]
+                loader: extractStyles.extract({
+                    publicPath: '../',
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                minimize: true
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: () => [autoPreFixer({
+                                    browsers: ['last 2 versions']
+                                })]
+                            }
+                        },
+                        'sass-loader'
+                    ]
+                })
             },
             {
                 test: /\.js$/,
@@ -68,6 +75,16 @@ module.exports = {
                 ]
             }]
     },
+
+    plugins: [
+        htmlPlugin,
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({
+            classNames: 'classnames'
+        }),
+        extractStyles
+    ],
+
     resolve: {
         modules: ['./src', 'node_modules'],
 
